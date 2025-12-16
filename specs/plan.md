@@ -195,6 +195,11 @@ AutoVideoSlice/
 | `frontend/src/services/api.js`           | 后端 API 服务封装                 | -                    |
 | `frontend/vite.config.js`                | Vite 构建配置                     | -                    |
 | `frontend/package.json`                  | npm 依赖和脚本配置                | -                    |
+| `backend/services/ai/base.py`            | AI 服务基类（统一接口）           | -                    |
+| `backend/services/ai/ollama.py`          | Ollama 本地模型客户端             | base.py              |
+| `backend/services/ai/doubao.py`          | 豆包云端 API 客户端               | base.py              |
+| `backend/services/ai/manager.py`         | AI 管理器（自动切换逻辑）         | ollama.py, doubao.py |
+| `backend/api/ai.py`                      | AI 状态检查和测试 API             | services/ai          |
 | `output/`                                | 视频导出目录，存放切割后的片段    | -                    |
 | `.gitignore`                             | Git 忽略规则                      | -                    |
 | `README.md`                              | 项目说明，快速上手指南            | -                    |

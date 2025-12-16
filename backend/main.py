@@ -42,7 +42,10 @@ def register_routes(app: FastAPI) -> None:
     
     # 注册 API 路由
     from api.subtitle import router as subtitle_router
+    from api.ai import router as ai_router
+    
     app.include_router(subtitle_router)
+    app.include_router(ai_router)
     
     @app.get("/health", tags=["系统"])
     async def health_check():

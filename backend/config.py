@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     
     # 云端模型 (豆包)
     doubao_api_key: Optional[str] = None
-    doubao_model: str = "doubao-1.5-pro-32k"
+    doubao_model: str = "doubao-1-5-pro-32k-250115"
     doubao_base_url: str = "https://ark.cn-beijing.volces.com/api/v3"
     
     # AI 策略：local_first | cloud_first | local_only | cloud_only
