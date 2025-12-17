@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Layout } from './components/Layout';
 import { FileUpload } from './components/FileUpload';
 import { ScoreCard } from './components/ScoreCard';
+import { CutProgress } from './components/CutProgress';
 import { api } from './services/api';
 import './App.css';
 
@@ -148,6 +149,9 @@ function App() {
             </button>
           </div>
         </section>
+
+        {/* 切割进度组件 */}
+        <CutProgress />
 
         {/* 评分组件演示区 */}
         <section className="demo-section">

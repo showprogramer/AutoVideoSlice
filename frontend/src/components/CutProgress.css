@@ -1,0 +1,164 @@
+/**
+ * 切割进度组件样式
+ */
+
+.cut-progress {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.cut-progress__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.cut-progress__header h3 {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.cut-progress__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.auto-refresh-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.auto-refresh-toggle input {
+  cursor: pointer;
+}
+
+/* 摘要区域 */
+.cut-progress__summary {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.summary-item {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.summary-item strong {
+  color: var(--color-text);
+}
+
+.summary-item.running strong {
+  color: #0071e3;
+}
+
+.summary-item.done strong {
+  color: #34c759;
+}
+
+.summary-item.failed strong {
+  color: #ff3b30;
+}
+
+/* 任务列表 */
+.cut-progress__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.task-item--running {
+  background-color: rgba(0, 113, 227, 0.08);
+}
+
+.task-item--done {
+  background-color: rgba(52, 199, 89, 0.08);
+}
+
+.task-item--failed {
+  background-color: rgba(255, 59, 48, 0.08);
+}
+
+.task-item__info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.task-item__icon {
+  font-size: var(--font-size-base);
+}
+
+.task-item__time {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-item__duration {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.task-item__status {
+  display: flex;
+  align-items: center;
+}
+
+.task-item__badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  color: white;
+}
+
+.task-item__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 120px;
+}
+
+.task-item__progress-bar {
+  flex: 1;
+  height: 4px;
+  background-color: #0071e3;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-fast);
+}
+
+.task-item__progress span {
+  font-size: var(--font-size-xs);
+  color: #0071e3;
+  min-width: 35px;
+}
+
+.task-item__error {
+  width: 100%;
+  font-size: var(--font-size-xs);
+  color: #ff3b30;
+  margin-top: var(--spacing-xs);
+}

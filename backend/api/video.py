@@ -200,3 +200,132 @@ async def generate_thumbnail(request: ThumbnailRequest):
             success=False,
             message=f"生成出错: {str(e)}",
         )
+
+
+# ==================== 批量切割 API ====================
+
+from services.task_queue import (
+    get_task_queue,
+    CutTask,
+    TaskStatus,
+    BatchCutRequest,
+    BatchCutResponse,
+)
+
+
+@router.post("/batch-cut", response_model=BatchCutResponse)
+async def batch_cut(request: BatchCutRequest):
+    """
+    批量切割视频
+    
+    添加多个切割任务到队列，后台异步执行。
+    """
+    # 检查输入文件
+    if not os.path.isfile(request.input_path):
+        return BatchCutResponse(
+            success=False,
+            message=f"输入视频不存在: {request.input_path}",
+        )
+    
+    # 检查 FFmpeg
+    ffmpeg = get_ffmpeg_service()
+    status = await ffmpeg.check_availability()
+    if not status.available:
+        return BatchCutResponse(
+            success=False,
+            message="FFmpeg 未安装，请先调用 /api/video/ffmpeg-install",
+        )
+    
+    # 添加任务
+    queue = get_task_queue()
+    task_ids = queue.add_batch(request.input_path, request.segments)
+    
+    # 启动后台工作线程
+    await queue.start_worker()
+    
+    return BatchCutResponse(
+        success=True,
+        message=f"已添加 {len(task_ids)} 个切割任务",
+        task_ids=task_ids,
+        total_tasks=len(task_ids),
+    )
+
+
+@router.get("/tasks")
+async def get_tasks():
+    """
+    获取所有切割任务
+    
+    返回任务列表及其状态。
+    """
+    queue = get_task_queue()
+    tasks = queue.get_all_tasks()
+    
+    return {
+        "success": True,
+        "tasks": [
+            {
+                "id": t.id,
+                "input_path": t.input_path,
+                "time_range": t.format_time_range(),
+                "duration": t.duration,
+                "status": t.status.value,
+                "progress": t.progress,
+                "output_path": t.output_path,
+                "error": t.error,
+            }
+            for t in tasks
+        ],
+        "summary": {
+            "total": len(tasks),
+            "pending": len([t for t in tasks if t.status == TaskStatus.PENDING]),
+            "running": len([t for t in tasks if t.status == TaskStatus.RUNNING]),
+            "done": len([t for t in tasks if t.status == TaskStatus.DONE]),
+            "failed": len([t for t in tasks if t.status == TaskStatus.FAILED]),
+        },
+    }
+
+
+@router.get("/task/{task_id}")
+async def get_task(task_id: str):
+    """
+    获取单个任务状态
+    """
+    queue = get_task_queue()
+    task = queue.get_task(task_id)
+    
+    if not task:
+        raise HTTPException(status_code=404, detail=f"任务不存在: {task_id}")
+    
+    return {
+        "success": True,
+        "task": {
+            "id": task.id,
+            "input_path": task.input_path,
+            "start_time": task.start_time,
+            "end_time": task.end_time,
+            "time_range": task.format_time_range(),
+            "duration": task.duration,
+            "status": task.status.value,
+            "progress": task.progress,
+            "output_path": task.output_path,
+            "error": task.error,
+            "created_at": task.created_at.isoformat() if task.created_at else None,
+            "completed_at": task.completed_at.isoformat() if task.completed_at else None,
+        },
+    }
+
+
+@router.delete("/tasks/clear")
+async def clear_tasks():
+    """
+    清除已完成的任务
+    """
+    queue = get_task_queue()
+    count = queue.clear_completed()
+    
+    return {
+        "success": True,
+        "message": f"已清除 {count} 个已完成任务",
+    }
+
