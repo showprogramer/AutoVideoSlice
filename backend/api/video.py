@@ -93,6 +93,14 @@ async def cut_video(request: CutRequest):
     service = get_ffmpeg_service()
     settings = get_settings()
     
+    # 检查 FFmpeg 可用性
+    status = await service.check_availability()
+    if not status.available:
+        return CutResponse(
+            success=False,
+            message="FFmpeg 未安装，请先调用 /api/video/ffmpeg-install",
+        )
+    
     # 检查输入文件
     if not os.path.isfile(request.input_path):
         return CutResponse(

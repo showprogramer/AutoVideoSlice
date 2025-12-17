@@ -7,6 +7,7 @@ import { Layout } from './components/Layout';
 import { FileUpload } from './components/FileUpload';
 import { ScoreCard } from './components/ScoreCard';
 import { CutProgress } from './components/CutProgress';
+import { ExportPanel } from './components/ExportPanel';
 import { api } from './services/api';
 import './App.css';
 
@@ -152,6 +153,9 @@ function App() {
 
         {/* 切割进度组件 */}
         <CutProgress />
+
+        {/* 导出面板 */}
+        <ExportPanel />
 
         {/* 评分组件演示区 */}
         <section className="demo-section">

@@ -213,8 +213,11 @@ AutoVideoSlice/
 | `backend/services/ffmpeg.py`              | FFmpeg 服务（自动下载、处理）     | models/video         |
 | `backend/services/task_queue.py`          | 切割任务队列                      | ffmpeg               |
 | `backend/api/video.py`                    | 视频 API 路由                     | ffmpeg, task_queue   |
+| `backend/api/export.py`                   | 导出 API 路由                     | task_queue           |
 | `frontend/src/components/CutProgress.jsx` | 切割进度展示组件                  | -                    |
 | `frontend/src/components/CutProgress.css` | 进度组件样式                      | -                    |
+| `frontend/src/components/ExportPanel.jsx` | 导出面板组件                      | -                    |
+| `frontend/src/components/ExportPanel.css` | 导出面板样式                      | -                    |
 | `output/`                                 | 视频导出目录，存放切割后的片段    | -                    |
 | `.gitignore`                              | Git 忽略规则                      | -                    |
 | `README.md`                               | 项目说明，快速上手指南            | -                    |

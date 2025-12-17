@@ -1,0 +1,86 @@
+/**
+ * 导出面板样式
+ */
+
+.export-panel {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.export-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.export-panel__header h3 {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.export-panel__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* 视频列表 */
+.export-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.export-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.export-item--selected {
+  background-color: rgba(0, 113, 227, 0.08);
+  border: 1px solid var(--color-primary);
+}
+
+.export-item__checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.export-item__checkbox input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.export-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.export-item__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.export-item__meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.export-item__download {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
