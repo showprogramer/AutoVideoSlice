@@ -192,6 +192,8 @@ AutoVideoSlice/
 | `frontend/src/App.jsx`                   | 主应用组件                        | components, services |
 | `frontend/src/components/Layout.jsx`     | 页面布局组件 (header/main/footer) | -                    |
 | `frontend/src/components/FileUpload.jsx` | 文件上传组件（支持拖拽）          | -                    |
+| `frontend/src/components/ScoreCard.jsx`  | 评分卡片组件（环形进度条+维度图） | -                    |
+| `frontend/src/components/ScoreCard.css`  | 评分卡片样式                      | -                    |
 | `frontend/src/services/api.js`           | 后端 API 服务封装                 | -                    |
 | `frontend/vite.config.js`                | Vite 构建配置                     | -                    |
 | `frontend/package.json`                  | npm 依赖和脚本配置                | -                    |
@@ -200,6 +202,16 @@ AutoVideoSlice/
 | `backend/services/ai/doubao.py`          | 豆包云端 API 客户端               | base.py              |
 | `backend/services/ai/manager.py`         | AI 管理器（自动切换逻辑）         | ollama.py, doubao.py |
 | `backend/api/ai.py`                      | AI 状态检查和测试 API             | services/ai          |
+| `backend/models/analysis.py`             | 分析结果数据模型                  | -                    |
+| `backend/services/prompts.py`            | Prompt 模板（高光提取、标题生成） | -                    |
+| `backend/services/analyzer.py`           | 内容分析服务                      | ai, prompts          |
+| `backend/api/analyze.py`                 | 分析 API 路由                     | analyzer             |
+| `backend/models/scoring.py`              | 评分数据模型（维度、等级）        | -                    |
+| `backend/services/scorer.py`             | 评分服务（多维度规则评分）        | models/scoring       |
+| `backend/api/score.py`                   | 评分 API 路由                     | scorer               |
+| `backend/models/video.py`                | 视频数据模型                      | -                    |
+| `backend/services/ffmpeg.py`             | FFmpeg 服务（自动下载、处理）     | models/video         |
+| `backend/api/video.py`                   | 视频 API 路由                     | ffmpeg               |
 | `output/`                                | 视频导出目录，存放切割后的片段    | -                    |
 | `.gitignore`                             | Git 忽略规则                      | -                    |
 | `README.md`                              | 项目说明，快速上手指南            | -                    |

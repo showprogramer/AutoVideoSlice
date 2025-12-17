@@ -92,3 +92,39 @@
 .status-item.success {
   color: var(--color-success);
 }
+
+/* 演示区域 */
+.demo-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.demo-header h2 {
+  font-size: var(--font-size-xl);
+}
+
+.score-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.demo-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.demo-item h4 {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+

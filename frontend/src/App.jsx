@@ -5,8 +5,46 @@
 import { useState } from 'react';
 import { Layout } from './components/Layout';
 import { FileUpload } from './components/FileUpload';
+import { ScoreCard } from './components/ScoreCard';
 import { api } from './services/api';
 import './App.css';
+
+// 演示用的模拟评分数据
+const DEMO_SCORES = [
+  {
+    total_score: 8.5,
+    recommendation: 'excellent',
+    summary: '优质片段，强烈推荐发布',
+    dimensions: [
+      { name: 'virality', score: 9.0, weight: 0.3, description: '包含多个爆款关键词' },
+      { name: 'emotion', score: 8.5, weight: 0.25, description: '情感类内容，感染力强' },
+      { name: 'density', score: 8.0, weight: 0.25, description: '时长最优(30-90秒)、信息点丰富' },
+      { name: 'completeness', score: 8.0, weight: 0.2, description: '时长充足、内容描述完整' },
+    ],
+  },
+  {
+    total_score: 6.2,
+    recommendation: 'good',
+    summary: '质量良好，可以考虑发布',
+    dimensions: [
+      { name: 'virality', score: 6.0, weight: 0.3, description: '传播力一般' },
+      { name: 'emotion', score: 7.0, weight: 0.25, description: '幽默内容，易传播' },
+      { name: 'density', score: 5.5, weight: 0.25, description: '时长稍短' },
+      { name: 'completeness', score: 6.5, weight: 0.2, description: '时长基本够用' },
+    ],
+  },
+  {
+    total_score: 4.5,
+    recommendation: 'fair',
+    summary: '质量一般，建议优化后发布',
+    dimensions: [
+      { name: 'virality', score: 4.0, weight: 0.3, description: '传播力一般' },
+      { name: 'emotion', score: 5.0, weight: 0.25, description: '情感表达适中' },
+      { name: 'density', score: 4.5, weight: 0.25, description: '时长过长，可能拖沓' },
+      { name: 'completeness', score: 5.0, weight: 0.2, description: '完整性待验证' },
+    ],
+  },
+];
 
 function App() {
   const [subtitleFile, setSubtitleFile] = useState(null);
@@ -14,6 +52,7 @@ function App() {
   const [subtitleData, setSubtitleData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showDemo, setShowDemo] = useState(false);
 
   const handleSubtitleSelect = async (file) => {
     setSubtitleFile(file);
@@ -109,6 +148,30 @@ function App() {
             </button>
           </div>
         </section>
+
+        {/* 评分组件演示区 */}
+        <section className="demo-section">
+          <div className="demo-header">
+            <h2>🎯 评分组件演示</h2>
+            <button 
+              className="btn btn-secondary"
+              onClick={() => setShowDemo(!showDemo)}
+            >
+              {showDemo ? '隐藏演示' : '显示演示'}
+            </button>
+          </div>
+
+          {showDemo && (
+            <div className="score-demo-grid">
+              {DEMO_SCORES.map((score, index) => (
+                <div key={index} className="demo-item">
+                  <h4>片段 {index + 1}</h4>
+                  <ScoreCard score={score} />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
       </div>
     </Layout>
   );
@@ -122,3 +185,4 @@ function formatTime(seconds) {
 }
 
 export default App;
+

@@ -46,6 +46,7 @@ class Settings(BaseSettings):
     
     # FFmpeg 配置
     ffmpeg_path: Optional[str] = None  # 为 None 时使用系统 PATH
+    ffmpeg_download_dir: str = "D:/Tools/ffmpeg"  # FFmpeg 下载目录
     
     model_config = {
         "env_file": ".env",
